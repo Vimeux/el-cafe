@@ -2,65 +2,92 @@
 
 namespace App\Controller;
 
+use App\Entity\Coffee;
+use App\Form\CoffeeType;
 use App\Repository\CoffeeRepository;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\BrowserKit\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * @Route("/api/coffee", name="coffee_")
+ * @Route("/coffee")
  */
 class CoffeeController extends AbstractController
 {
-  /**
-   * @Route("", name="get", methods={"GET"})
-   */
-  public function getAll(
-    CoffeeRepository $coffeeRepository,
-    SerializerInterface $serializer
-  ): Response {
-    (new ObjectNormalizer())->setSerializer($serializer);
-
-    $coffees = $coffeeRepository->findAll();
-
-    return new JsonResponse($serializer->normalize($coffees, null, ['groups' => 'coffee']));
-  }
-
-  /**
-   * @Route("/{id}", name="get_one", methods={"GET"})
-   */
-  public function getOne(
-    CoffeeRepository $coffeeRepository,
-    SerializerInterface $serializer,
-    int $id
-  ): Response {
-    (new ObjectNormalizer())->setSerializer($serializer);
-
-    $coffee = $coffeeRepository->find($id);
-
-    if (!$coffee) {
-      throw $this->createNotFoundException(sprintf("%s is not a known coffee", $id));
+    /**
+     * @Route("/", name="app_coffee_index", methods={"GET"})
+     */
+    public function index(CoffeeRepository $coffeeRepository): Response
+    {
+        return $this->render('coffee/index.html.twig', [
+            'coffees' => $coffeeRepository->findAll(),
+        ]);
     }
 
-    return new JsonResponse($serializer->normalize($coffee, null, ['groups' => 'coffee']));
-  }
+    /**
+     * @Route("/new", name="app_coffee_new", methods={"GET", "POST"})
+     */
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $coffee = new Coffee();
+        $form = $this->createForm(CoffeeType::class, $coffee);
+        $form->handleRequest($request);
 
-  /**
-   * @Route("", name="post", methods={"POST"}, format="json")
-   */
-  public function post(
-    CoffeeRepository $coffeeRepository,
-    EntityManager $entityManager,
-    SerializerInterface $serializer,
-    Request $request,
-    ValidatorInterface $validator
-  ): Response {
-    
-  }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($coffee);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_coffee_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('coffee/new.html.twig', [
+            'coffee' => $coffee,
+            'form' => $form,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="app_coffee_show", methods={"GET"})
+     */
+    public function show(Coffee $coffee): Response
+    {
+        return $this->render('coffee/show.html.twig', [
+            'coffee' => $coffee,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/edit", name="app_coffee_edit", methods={"GET", "POST"})
+     */
+    public function edit(Request $request, Coffee $coffee, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(CoffeeType::class, $coffee);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_coffee_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('coffee/edit.html.twig', [
+            'coffee' => $coffee,
+            'form' => $form,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="app_coffee_delete", methods={"POST"})
+     */
+    public function delete(Request $request, Coffee $coffee, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$coffee->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($coffee);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_coffee_index', [], Response::HTTP_SEE_OTHER);
+    }
 }
