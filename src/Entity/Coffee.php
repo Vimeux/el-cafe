@@ -98,7 +98,7 @@ class Coffee
     /**
      * @return Collection<int, seedtype>
      */
-    public function getSeedType(): Collection
+    public function getSeedType(): ?Collection
     {
         return $this->seed_type;
     }
@@ -122,7 +122,7 @@ class Coffee
     /**
      * @return Collection<int, Coffeeshop>
      */
-    public function getCoffeeshop(): Collection
+    public function getCoffeeshop(): ?Collection
     {
         return $this->coffeeshop;
     }
@@ -173,5 +173,8 @@ class Coffee
         return $this;
     }
 
-    
+    public function __toString()
+    {
+      return $this->name;
+    }
 }

@@ -35,7 +35,7 @@ class CoffeeShop
     private $website;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Coffee::class, inversedBy="CoffeeShop")
+     * @ORM\ManyToMany(targetEntity=Coffee::class, inversedBy="coffeeshop")
      */
     private $id_coffee;
 
