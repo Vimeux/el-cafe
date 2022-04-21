@@ -35,25 +35,23 @@ class Coffee
     private $origin;
 
     /**
-     * @ORM\ManyToMany(targetEntity=seedtype::class, inversedBy="coffee")
+     * @ORM\ManyToMany(targetEntity=SeedType::class, inversedBy="coffee")
      */
     private $seed_type;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Coffeeshop::class, mappedBy="id_coffee")
+     * @ORM\ManyToMany(targetEntity=CoffeeShop::class, mappedBy="id_coffee")
      */
     private $coffeeshop;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Favorite::class, mappedBy="id_coffee")
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="Favorite")
      */
-    private $favorite;
+    private $users;
 
     public function __construct()
     {
-        $this->seed_type = new ArrayCollection();
-        $this->coffeeshop = new ArrayCollection();
-        $this->favorite = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -149,29 +147,31 @@ class Coffee
     }
 
     /**
-     * @return Collection<int, Favorite>
+     * @return Collection<int, User>
      */
-    public function getFavorite(): Collection
+    public function getUsers(): Collection
     {
-        return $this->favorite;
+        return $this->users;
     }
 
-    public function addFavorite(Favorite $favorite): self
+    public function addUser(User $user): self
     {
-        if (!$this->favorite->contains($favorite)) {
-            $this->favorite[] = $favorite;
-            $favorite->addIdCoffee($this);
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addFavorite($this);
         }
 
         return $this;
     }
 
-    public function removeFavorite(Favorite $favorite): self
+    public function removeUser(User $user): self
     {
-        if ($this->favorite->removeElement($favorite)) {
-            $favorite->removeIdCoffee($this);
+        if ($this->users->removeElement($user)) {
+            $user->removeFavorite($this);
         }
 
         return $this;
     }
+
+    
 }

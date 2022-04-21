@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -43,14 +45,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $isVerified = false;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Favorite::class, inversedBy="id_user")
+     * @ORM\ManyToMany(targetEntity=Coffee::class, inversedBy="users")
      */
-    private $favorite;
+    private $Favorite;
 
-    public function getId(): ?int
+    public function __construct()
     {
-        return $this->id;
+        $this->Favorite = new ArrayCollection();
     }
+
+    
 
     public function getEmail(): ?string
     {
@@ -148,14 +152,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getFavorite(): ?Favorite
+    /**
+     * @return Collection<int, Coffee>
+     */
+    public function getFavorite(): Collection
     {
-        return $this->favorite;
+        return $this->Favorite;
     }
 
-    public function setFavorite(?Favorite $favorite): self
+    public function addFavorite(Coffee $favorite): self
     {
-        $this->favorite = $favorite;
+        if (!$this->Favorite->contains($favorite)) {
+            $this->Favorite[] = $favorite;
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(Coffee $favorite): self
+    {
+        $this->Favorite->removeElement($favorite);
 
         return $this;
     }
