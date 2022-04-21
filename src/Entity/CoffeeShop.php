@@ -35,7 +35,7 @@ class CoffeeShop
     private $website;
 
     /**
-     * @ORM\ManyToMany(targetEntity=coffee::class, inversedBy="coffeeshop")
+     * @ORM\ManyToMany(targetEntity=Coffee::class, inversedBy="CoffeeShop")
      */
     private $id_coffee;
 
@@ -86,14 +86,14 @@ class CoffeeShop
     }
 
     /**
-     * @return Collection<int, coffee>
+     * @return Collection<int, Coffee>
      */
     public function getIdCoffee(): Collection
     {
         return $this->id_coffee;
     }
 
-    public function addIdCoffee(coffee $idCoffee): self
+    public function addIdCoffee(Coffee $idCoffee): self
     {
         if (!$this->id_coffee->contains($idCoffee)) {
             $this->id_coffee[] = $idCoffee;
@@ -102,7 +102,7 @@ class CoffeeShop
         return $this;
     }
 
-    public function removeIdCoffee(coffee $idCoffee): self
+    public function removeIdCoffee(Coffee $idCoffee): self
     {
         $this->id_coffee->removeElement($idCoffee);
 

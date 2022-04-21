@@ -105,7 +105,7 @@ class Coffee
         return $this->seed_type;
     }
 
-    public function addSeedType(seedtype $seedType): self
+    public function addSeedType(SeedType $seedType): self
     {
         if (!$this->seed_type->contains($seedType)) {
             $this->seed_type[] = $seedType;
@@ -114,7 +114,7 @@ class Coffee
         return $this;
     }
 
-    public function removeSeedType(seedtype $seedType): self
+    public function removeSeedType(SeedType $seedType): self
     {
         $this->seed_type->removeElement($seedType);
 
@@ -129,7 +129,7 @@ class Coffee
         return $this->coffeeshop;
     }
 
-    public function addCoffeeshop(Coffeeshop $coffeeshop): self
+    public function addCoffeeshop(CoffeeShop $coffeeshop): self
     {
         if (!$this->coffeeshop->contains($coffeeshop)) {
             $this->coffeeshop[] = $coffeeshop;
@@ -139,7 +139,7 @@ class Coffee
         return $this;
     }
 
-    public function removeCoffeeshop(Coffeeshop $coffeeshop): self
+    public function removeCoffeeshop(CoffeeShop $coffeeshop): self
     {
         if ($this->coffeeshop->removeElement($coffeeshop)) {
             $coffeeshop->removeIdCoffee($this);
