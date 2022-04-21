@@ -20,12 +20,12 @@ class Favorite
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity=coffee::class, inversedBy="favorite")
+     * @ORM\ManyToMany(targetEntity=Coffee::class, inversedBy="Favorite")
      */
     private $id_coffee;
 
     /**
-     * @ORM\OneToMany(targetEntity=user::class, mappedBy="favorite")
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="Favorite")
      */
     private $id_user;
 
@@ -41,14 +41,14 @@ class Favorite
     }
 
     /**
-     * @return Collection<int, coffee>
+     * @return Collection<int, Coffee>
      */
     public function getIdCoffee(): Collection
     {
         return $this->id_coffee;
     }
 
-    public function addIdCoffee(coffee $idCoffee): self
+    public function addIdCoffee(Coffee $idCoffee): self
     {
         if (!$this->id_coffee->contains($idCoffee)) {
             $this->id_coffee[] = $idCoffee;
@@ -57,7 +57,7 @@ class Favorite
         return $this;
     }
 
-    public function removeIdCoffee(coffee $idCoffee): self
+    public function removeIdCoffee(Coffee $idCoffee): self
     {
         $this->id_coffee->removeElement($idCoffee);
 
