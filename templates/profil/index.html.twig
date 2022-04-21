@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+<main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+    <div class="sm:text-center lg:text-left">
+          <h1 class="text-3xl tracking-tight font-extrabold text-black sm:text-5xl md:text-3xl">
+            <span class="block xl:inline">hello</span>
+            <span class="block text-mango xl:inline">{{ app.user.email }}</span>
+            <span class="block xl:inline"> !</span>
+          </h1>
+    </div>
+</div>
+{% endblock %}
