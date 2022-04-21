@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
   class LoginController extends AbstractController
@@ -12,8 +13,11 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
     /**
      * @Route("/login", name="login")
      */
-    public function index(AuthenticationUtils $authenticationUtils): Response
+    public function index(AuthenticationUtils $authenticationUtils,  ?UserInterface $user): Response
       {
+        if ($user) {
+          return $this->redirectToRoute('home');
+        }
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
