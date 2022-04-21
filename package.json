@@ -1,5 +1,30 @@
 {
+<<<<<<< HEAD
   "dependencies": {
     "tailwindcss": "^3.0.24"
   }
+=======
+    "devDependencies": {
+        "@hotwired/stimulus": "^3.0.0",
+        "@symfony/stimulus-bridge": "^3.0.0",
+        "@symfony/webpack-encore": "^1.7.0",
+        "autoprefixer": "^10.4.2",
+        "core-js": "^3.0.0",
+        "postcss-loader": "^6.2.1",
+        "regenerator-runtime": "^0.13.2",
+        "sass-loader": "^12.0.0",
+        "webpack-notifier": "^1.6.0"
+    },
+    "license": "UNLICENSED",
+    "private": true,
+    "scripts": {
+        "dev-server": "encore dev-server",
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "build": "encore production --progress"
+    },
+    "dependencies": {
+        "tailwindcss": "^3.0.23"
+    }
+>>>>>>> 6a57bcf7ce19739de9bc67038c43746a3993fbe3
 }
