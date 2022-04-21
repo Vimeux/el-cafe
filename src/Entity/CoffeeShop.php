@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CoffeeShopRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,16 @@ class CoffeeShop
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $website;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=coffee::class, inversedBy="coffeeshop")
+     */
+    private $id_coffee;
+
+    public function __construct()
+    {
+        $this->id_coffee = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,6 +81,30 @@ class CoffeeShop
     public function setWebsite(?string $website): self
     {
         $this->website = $website;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, coffee>
+     */
+    public function getIdCoffee(): Collection
+    {
+        return $this->id_coffee;
+    }
+
+    public function addIdCoffee(coffee $idCoffee): self
+    {
+        if (!$this->id_coffee->contains($idCoffee)) {
+            $this->id_coffee[] = $idCoffee;
+        }
+
+        return $this;
+    }
+
+    public function removeIdCoffee(coffee $idCoffee): self
+    {
+        $this->id_coffee->removeElement($idCoffee);
 
         return $this;
     }
