@@ -31,17 +31,27 @@
                                 <a href="#" class="text-dark-coffee-bold  hover:bg-beige  px-3 py-2 rounded-md text-sm font-medium">Coffee-Shop</a>
                             {% if app.user %}
                                 <a href="#" class="text-dark-coffee-bold hover:bg-beige px-3 py-2 rounded-md text-sm font-medium">Favoris</a>
+
                             {% endif %}
                             </div>
                         </div>
                     </div>
                       {% if app.user == null %}
+                      
                      <button class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-mango hover:bg-light-coffee focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dark-coffee" >
                      <a href="{{ path('login') }}">Connexion</a>
                      </button>
                     {% endif %}
                     {% if app.user %}
-                     <button class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-black bg-mango hover:bg-light-coffee hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dark-coffee"> <a href="/logout"> Déconnexion </a></button>
+                    <div class="flex items-center justify-center h-10 w-10 rounded-full text-dark-coffee hover:text-mango">
+                    <a href="profil">
+              <!-- Heroicon name: outline:user -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    </a>
+                    </div>
+                     <button class="inline-flex justify-center mx-10 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-mango hover:bg-light-coffee focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dark-coffee"> <a href="/logout"> Déconnexion </a></button>
                     {% endif %}
                 </div>
             </div>
