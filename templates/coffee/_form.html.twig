@@ -1,4 +1,10 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_widget(form.name, {
+      'attr': {'class': 'text-gray-700 shadow border rounded border-gray-300 focus:outline-none focus:shadow-outline py-1 px-3 mb-3'},
+      'label': 'Votre nom'
+    }) }}
+    {{ form_row(form.intensity) }}
+    {{ form_row(form.origin) }}
+    {# {{ form_widget(form) }} #}
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
