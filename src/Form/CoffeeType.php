@@ -15,6 +15,8 @@ class CoffeeType extends AbstractType
             ->add('name')
             ->add('intensity')
             ->add('origin')
+            ->add('seedType')
+            ->add('coffeeShop')
         ;
     }
 

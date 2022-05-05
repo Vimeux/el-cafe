@@ -37,12 +37,12 @@ class Coffee
     /**
      * @ORM\ManyToMany(targetEntity=SeedType::class, inversedBy="coffee")
      */
-    private $seed_type;
+    private $seedType;
 
     /**
      * @ORM\ManyToMany(targetEntity=CoffeeShop::class, mappedBy="id_coffee")
      */
-    private $coffeeshop;
+    private $coffeeShop;
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, mappedBy="Favorite")
@@ -52,6 +52,8 @@ class Coffee
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->seedType = new ArrayCollection();
+        $this->coffeeShop = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -100,13 +102,14 @@ class Coffee
      */
     public function getSeedType(): ?Collection
     {
-        return $this->seed_type;
+        return $this->seedType;
     }
 
     public function addSeedType(SeedType $seedType): self
     {
-        if (!$this->seed_type->contains($seedType)) {
-            $this->seed_type[] = $seedType;
+        // var_dump($this->$seedType);
+        if (!$this->seedType->contains($seedType)) {
+            $this->seedType[] = $seedType;
         }
 
         return $this;
@@ -114,7 +117,7 @@ class Coffee
 
     public function removeSeedType(SeedType $seedType): self
     {
-        $this->seed_type->removeElement($seedType);
+        $this->seedType->removeElement($seedType);
 
         return $this;
     }
@@ -124,23 +127,23 @@ class Coffee
      */
     public function getCoffeeshop(): ?Collection
     {
-        return $this->coffeeshop;
+        return $this->coffeeShop;
     }
 
-    public function addCoffeeshop(CoffeeShop $coffeeshop): self
+    public function addCoffeeshop(CoffeeShop $coffeeShop): self
     {
-        if (!$this->coffeeshop->contains($coffeeshop)) {
-            $this->coffeeshop[] = $coffeeshop;
-            $coffeeshop->addIdCoffee($this);
+        if (!$this->coffeeShop->contains($coffeeShop)) {
+            $this->coffeeShop[] = $coffeeShop;
+            $coffeeShop->addIdCoffee($this);
         }
 
         return $this;
     }
 
-    public function removeCoffeeshop(CoffeeShop $coffeeshop): self
+    public function removeCoffeeshop(CoffeeShop $coffeeShop): self
     {
-        if ($this->coffeeshop->removeElement($coffeeshop)) {
-            $coffeeshop->removeIdCoffee($this);
+        if ($this->coffeeShop->removeElement($coffeeShop)) {
+            $coffeeShop->removeIdCoffee($this);
         }
 
         return $this;
