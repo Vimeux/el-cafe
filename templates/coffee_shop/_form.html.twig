@@ -1,4 +1,27 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="h-screen bg-beige flex justify-center items-center">
+    <div style="display: grid; padding: 20px; border-radius: 20px" class ="w-full max-w-xs bg-white flex flex-col py-5 px-8 rounded-lg shadow-lg" action="{{ path('login') }}" method="post">
+        <h1 style="font-size: 25px">Créer un coffee shop</h1>
+        {{ form_label(form.name, "Son nom", {
+            'attr': {'class': 'text-gray-700 font-bold py-2'}
+        }) }}
+        {{ form_widget(form.name, {
+            'attr': {'class': 'text-gray-700 shadow border rounded border-gray-300 focus:outline-none focus:shadow-outline py-1 px-3 mb-3', 'style': 'border-radius: 5px'}
+        }) }}
+        {{ form_label(form.address, "Son adresse", {
+            'attr': {'class': 'text-gray-700 font-bold py-2'}
+        }) }}
+        {{ form_widget(form.address, {
+            'attr': {'class': 'text-gray-700 shadow border rounded border-gray-300 focus:outline-none focus:shadow-outline py-1 px-3 mb-3', 'style': 'border-radius: 5px'}
+        }) }}
+        {{ form_label(form.website, "Son site internet", {
+            'attr': {'class': 'text-gray-700 font-bold py-2'}
+        }) }}
+        {{ form_widget(form.website, {
+            'attr': {'class': 'text-gray-700 shadow border rounded border-gray-300 focus:outline-none focus:shadow-outline py-1 px-3 mb-3', 'style': 'border-radius: 5px'}
+        }) }}
+        <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-mango hover:bg-light-coffee focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dark-coffee">{{ button_label|default('Enregistrer') }}</button>
+        <a class="text-black-600 hover:text-orange-500 font-bold" href="{{ path('app_coffee_shop_index') }}">Retour à la liste</a>
+    </div>
+</div>
 {{ form_end(form) }}
