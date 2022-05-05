@@ -1,7 +1,7 @@
 {{ form_start(form) }}
 <div class="h-screen bg-beige flex justify-center items-center">
     <div style="display: grid; padding: 20px; border-radius: 20px" class ="w-full max-w-xs bg-white flex flex-col py-5 px-8 rounded-lg shadow-lg" action="{{ path('login') }}" method="post">
-        <h1 style="font-size: 25px">Créer un coffee shop</h1>
+        <h1 style="font-size: 25px">{{ h1_label|default('Créer un coffee shop') }}</h1>
         {{ form_label(form.name, "Son nom", {
             'attr': {'class': 'text-gray-700 font-bold py-2'}
         }) }}
