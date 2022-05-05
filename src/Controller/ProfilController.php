@@ -22,4 +22,19 @@ class ProfilController extends AbstractController
         ]);
         }
     }
+
+    // show favorite coffee
+    /**
+     * @Route("/profil/favoris", name="profil_favoris")
+     */
+    public function showFavoris(?UserInterface $user): Response
+    {
+        if (!$user) {
+            return $this->redirectToRoute('home');
+        } else {
+          return $this->render('profil/favoris.html.twig', [
+            'coffees' => $user->getFavorite(),
+          ]);
+        }
+    }
 }

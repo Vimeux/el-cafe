@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Coffee;
+use App\Entity\User;
 use App\Form\CoffeeType;
 use App\Repository\CoffeeRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -87,6 +88,19 @@ class CoffeeController extends AbstractController
             $entityManager->remove($coffee);
             $entityManager->flush();
         }
+
+        return $this->redirectToRoute('app_coffee_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    // function to add coffee favorite
+    /**
+     * @Route("/{id}/favorite", name="app_coffee_favorite", methods={"GET"})
+     */
+    public function favorite(Coffee $coffee, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        $coffee->addUser($user);
+        $entityManager->flush();
 
         return $this->redirectToRoute('app_coffee_index', [], Response::HTTP_SEE_OTHER);
     }
