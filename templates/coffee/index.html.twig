@@ -35,7 +35,9 @@
                     <a href="{{ path('app_coffee_show', {'id': coffee.id}) }}">show</a>
                     <a href="{{ path('app_coffee_edit', {'id': coffee.id}) }}">edit</a>
                 </td>
-                {% endif %}
+                <td>
+                  <a href="{{ path('app_coffee_favorite', {'id': coffee.id})  }}">add to favorite</a>
+                </td>
             </tr>
         {% else %}
             <tr>
