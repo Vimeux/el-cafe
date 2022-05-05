@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Coffee;
+use App\Entity\User;
 use App\Form\CoffeeType;
 use App\Repository\CoffeeRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,10 +53,15 @@ class CoffeeController extends AbstractController
     /**
      * @Route("/{id}", name="app_coffee_show", methods={"GET"})
      */
-    public function show(Coffee $coffee): Response
-    {
+    public function show(ManagerRegistry $doctrine, Coffee $coffee): Response
+    {   
+        $coffee = $doctrine->getRepository(Coffee::class)->find($coffee);
+
+        $seedTypes = $coffee->getSeedType()->current();
+        
         return $this->render('coffee/show.html.twig', [
             'coffee' => $coffee,
+            'seedTypes' => $seedTypes,
         ]);
     }
 
@@ -87,6 +94,31 @@ class CoffeeController extends AbstractController
             $entityManager->remove($coffee);
             $entityManager->flush();
         }
+
+        return $this->redirectToRoute('app_coffee_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/{id}/favorite", name="app_coffee_favorite", methods={"GET"})
+     */
+    public function favorite(Coffee $coffee, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        $coffee->addUser($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_coffee_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    // function to remove coffee from favorite
+    /**
+     * @Route("/{id}/unfavorite", name="app_coffee_unfavorite", methods={"GET"})
+     */
+    public function unfavorite(Coffee $coffee, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        $coffee->removeUser($user);
+        $entityManager->flush();
 
         return $this->redirectToRoute('app_coffee_index', [], Response::HTTP_SEE_OTHER);
     }

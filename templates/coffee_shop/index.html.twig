@@ -3,7 +3,8 @@
 {% block title %}CoffeeShop index{% endblock %}
 
 {% block body %}
-<h1 class="text-4xl font-bold text-center text-gray-800 mb-8">Index coffee shop</h1>
+<<<<<<< HEAD
+<h1 class="text-4xl font-bold text-center text-gray-800 mb-8">Les Coffee-Shop</h1>
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -41,20 +42,23 @@
                     <td class="px-6 py-4">
                         {{ coffee_shop.website }}
                     </td>
+                    {% if is_granted('ROLE_ADMIN') %}
                     <td class="px-6 py-4 text-right">
                         <a href="{{ path('app_coffee_shop_show', {'id': coffee_shop.id}) }}">show</a>
                         <a href="{{ path('app_coffee_shop_edit', {'id': coffee_shop.id}) }}">edit</a>
                     </td>
+                    {% endif %}
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="5">Aucune entité trouvée</td>
+                    <td colspan="5">Il n'y a pas encore de coffee-shop dans la liste</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
-
-<a class="text-black-600 hover:text-orange-500 font-bold" href="{{ path('app_coffee_shop_new') }}">Créer un nouveau coffee shop</a>
-
+    {% if is_granted('ROLE_ADMIN') %}
+        <a class="text-black-600 hover:text-orange-500 font-bold" href="{{ path('app_coffee_shop_new') }}">Créer un nouveau coffee shop</a>
+    {% endif %}
+    
 {% endblock %}

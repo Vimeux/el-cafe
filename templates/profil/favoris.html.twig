@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+{# show favorite coffee #}
+{% block body %}
+    <div class="h-screen bg-beige flex justify-center items-center">
+        <div class="w-full max-w-xs bg-white flex flex-col py-5 px-8 rounded-lg shadow-lg">
+            <h1 style="font-size: 25px">Favoris</h1>
+            <div class="flex flex-wrap justify-center">
+                {% for coffee in coffees %}
+                    <div class="w-full md:w-1/2 lg:w-1/3 p-3">
+                        <div class="bg-white border rounded shadow-lg">
+                            <div class="flex justify-center">
+                                {# <img src="{{ asset('images/coffee/' ~ coffee.image) }}" alt="{{ coffee.name }}" class="w-full"> #}
+                            </div>
+                            <div class="px-6 py-4">
+                                <div class="font-bold text-xl mb-2">{{ coffee.name }}</div>
+                                {# <p class="text-gray-700 text-base">{{ coffee.description }}</p> #}
+                            </div>
+                            <div class="px-6 py-4">
+                                {# <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#{{ coffee.category }}</span> #}
+                                {# <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#{{ coffee.roast }}</span> #}
+                                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#{{ coffee.origin }}</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

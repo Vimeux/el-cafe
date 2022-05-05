@@ -3,11 +3,12 @@
 {% block title %}Coffee index{% endblock %}
 
 {% block body %}
-<h1 class="text-4xl font-bold text-center text-gray-800 mb-8">Index café</h1>
+<h1 class="text-4xl font-bold text-center text-gray-800 mb-8">Le café</h1>
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+
             <tr>
                 <th scope="col" class="px-6 py-3">
                     Id
@@ -41,19 +42,27 @@
                     <td class="px-6 py-4">
                         {{ coffee.origin }}
                     </td>
+                    {% if is_granted('ROLE_ADMIN') %}
                     <td class="px-6 py-4 text-right">
                         <a href="{{ path('app_coffee_show', {'id': coffee.id}) }}">show</a>
                         <a href="{{ path('app_coffee_edit', {'id': coffee.id}) }}">edit</a>
                     </td>
+                    {% endif %}
+                    <td>
+                        <a href="{{ path('app_coffee_favorite', {'id': coffee.id})  }}">add to favorite</a>
+                    </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="5">Aucune entité trouvée</td>
+                    <td colspan="5">Il n'y a pas encore de cafés dans la liste</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
 
-<a class="text-black-600 hover:text-orange-500 font-bold" href="{{ path('app_coffee_new') }}">Créer un nouveau café</a>
+{% if is_granted('ROLE_ADMIN') %} 
+    <a href="{{ path('app_coffee_new') }}">Create new</a>
+{% endif %}
+
 {% endblock %}
