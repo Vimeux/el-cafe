@@ -3,8 +3,16 @@
 {% block title %}Coffee index{% endblock %}
 
 {% block body %}
-    <h1>Coffee index</h1>
-
+    <div class="example-wrapper">
+<main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+    <div class="sm:text-center lg:text-left">
+          <h1 class="text-3xl tracking-tight font-extrabold text-black sm:text-5xl md:text-3xl">
+            
+            <span class="block text-mango xl:inline">Le café</span>
+            
+          </h1>
+    </div>
+    <div>
     <table class="table">
         <thead>
             <tr>
@@ -22,18 +30,27 @@
                 <td>{{ coffee.name }}</td>
                 <td>{{ coffee.intensity }}</td>
                 <td>{{ coffee.origin }}</td>
+                {% if is_granted('ROLE_ADMIN') %}
                 <td>
                     <a href="{{ path('app_coffee_show', {'id': coffee.id}) }}">show</a>
                     <a href="{{ path('app_coffee_edit', {'id': coffee.id}) }}">edit</a>
                 </td>
+                {% endif %}
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">Il n'y a pas encore de cafés dans la liste</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
+    {% if is_granted('ROLE_ADMIN') %}
+    
     <a href="{{ path('app_coffee_new') }}">Create new</a>
+    {% endif %}
+    </div>
+</div>
+    
+    
+    
 {% endblock %}
