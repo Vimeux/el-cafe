@@ -3,9 +3,7 @@
 {% block title %}New Coffee{% endblock %}
 
 {% block body %}
-    <h1>Create new Coffee</h1>
 
     {{ include('coffee/_form.html.twig') }}
-
-    <a href="{{ path('app_coffee_index') }}">back to list</a>
+    
 {% endblock %}
