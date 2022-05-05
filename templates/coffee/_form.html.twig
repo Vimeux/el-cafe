@@ -20,8 +20,18 @@
         {{ form_widget(form.origin, {
             'attr': {'class': 'text-gray-700 shadow border rounded border-gray-300 focus:outline-none focus:shadow-outline py-1 px-3 mb-3', 'style': 'border-radius: 5px'}
         }) }}
-        {{ form_row(form.seedType) }}
-        {{ form_row(form.coffeeShop) }}
+        {{ form_label(form.seedType, "Son type de grain", {
+            'attr': {'class': 'text-gray-700 font-bold py-2'}
+        }) }}
+        {{ form_widget(form.seedType, {
+            'attr': {'class': 'text-gray-700 shadow border rounded border-gray-300 focus:outline-none focus:shadow-outline py-1 px-3 mb-3', 'style': 'border-radius: 5px'}
+        }) }}
+        {{ form_label(form.coffeeShop, "Son coffee shop", {
+            'attr': {'class': 'text-gray-700 font-bold py-2'}
+        }) }}
+        {{ form_widget(form.coffeeShop, {
+            'attr': {'class': 'text-gray-700 shadow border rounded border-gray-300 focus:outline-none focus:shadow-outline py-1 px-3 mb-3', 'style': 'border-radius: 5px'}
+        }) }}
         <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-mango hover:bg-light-coffee focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dark-coffee">{{ button_label|default('Enregistrer') }}</button>
         <a class="text-black-600 hover:text-orange-500 font-bold" href="{{ path('app_coffee_index') }}">Retour à la liste</a>
 
