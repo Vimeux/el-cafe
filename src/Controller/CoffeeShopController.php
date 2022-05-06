@@ -62,7 +62,8 @@ class CoffeeShopController extends AbstractController
      * @Route("/{id}/edit", name="app_coffee_shop_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, CoffeeShop $coffeeShop, EntityManagerInterface $entityManager): Response
-    {
+    {   
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous n\'avez pas accès à cette page.');
         $form = $this->createForm(CoffeeShopType::class, $coffeeShop);
         $form->handleRequest($request);
 

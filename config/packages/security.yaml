@@ -45,6 +45,8 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/coffee/\d+/edit, roles: ROLE_ADMIN }
+        - { path: ^/coffeeshop/\d+/edit, roles: ROLE_ADMIN }
+        - { path: ^/seedtype, roles: ROLE_ADMIN }
 
 when@test:
     security:

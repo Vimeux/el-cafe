@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Route("/coffee")
@@ -21,7 +22,7 @@ class CoffeeController extends AbstractController
     /**
      * @Route("/", name="app_coffee_index", methods={"GET"})
      */
-    public function index(CoffeeRepository $coffeeRepository): Response
+    public function index(CoffeeRepository $coffeeRepository, ?UserInterface $user): Response
     {
         return $this->render('coffee/index.html.twig', [
             'coffees' => $coffeeRepository->findAll(),
@@ -70,6 +71,7 @@ class CoffeeController extends AbstractController
      */
     public function edit(Request $request, Coffee $coffee, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous n\'avez pas accès à cette page.');
         $form = $this->createForm(CoffeeType::class, $coffee);
         $form->handleRequest($request);
 
@@ -90,6 +92,7 @@ class CoffeeController extends AbstractController
      */
     public function delete(Request $request, Coffee $coffee, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Vous n\'avez pas accès à cette page.');
         if ($this->isCsrfTokenValid('delete'.$coffee->getId(), $request->request->get('_token'))) {
             $entityManager->remove($coffee);
             $entityManager->flush();

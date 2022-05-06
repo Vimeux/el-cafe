@@ -42,15 +42,20 @@
                     <td class="px-6 py-4">
                         {{ coffee.origin }}
                     </td>
-                    {% if is_granted('ROLE_ADMIN') %}
                     <td class="px-6 py-4 text-right">
-                        <a href="{{ path('app_coffee_show', {'id': coffee.id}) }}">show</a>
+                      <a href="{{ path('app_coffee_show', {'id': coffee.id}) }}">show</a>
+                    </td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <td>
                         <a href="{{ path('app_coffee_edit', {'id': coffee.id}) }}">edit</a>
                     </td>
-                    {% endif %}
+                    {% elseif app.user %}
+                    {% if coffee == app.user %}
                     <td>
                         <a href="{{ path('app_coffee_favorite', {'id': coffee.id})  }}">add to favorite</a>
                     </td>
+                    {% endif %}
+                    {% endif %}
                 </tr>
             {% else %}
                 <tr>

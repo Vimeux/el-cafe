@@ -20,7 +20,7 @@ class LoginControllerTest extends WebTestCase
     {
       $client = static::createClient();
       $crawler = $client->request('GET', '/login');
-      $form = $crawler->selectButton('login')->form([
+      $form = $crawler->selectButton('Se connecter')->form([
         '_username' => 'toto',
         '_password' => 'toto',
       ]);

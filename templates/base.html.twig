@@ -31,7 +31,9 @@
                                 <a href="/coffeeshop" class="text-dark-coffee-bold  hover:bg-beige  px-3 py-2 rounded-md text-sm font-medium">Coffee-Shop</a>
                             {% if app.user %}
                                 <a href="/profil/favoris" class="text-dark-coffee-bold hover:bg-beige px-3 py-2 rounded-md text-sm font-medium">Favoris</a>
-
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="/seedtype" class="text-dark-coffee-bold hover:bg-beige px-3 py-2 rounded-md text-sm font-medium">Seed Types</a>
+                            {% endif %}
                             {% endif %}
                             </div>
                         </div>

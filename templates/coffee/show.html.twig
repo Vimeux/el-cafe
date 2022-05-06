@@ -36,7 +36,13 @@
 
     <a class="text-black-600 hover:text-orange-500 font-bold" href="{{ path('app_coffee_index') }}">Retour à la liste</a>
 
-    <a href="{{ path('app_coffee_edit', {'id': coffee.id}) }}">edit</a>
-
-    {{ include('coffee/_delete_form.html.twig') }}
+    {% if is_granted('ROLE_ADMIN') %}
+        <a class="text-black-600 hover:text-orange-500 font-bold" href="{{ path('app_coffee_edit', {'id': coffee.id}) }}">Editer</a>
+    {% elseif app.user %}
+        <a class="text-black-600 hover:text-orange-500 font-bold" href="{{ path('app_coffee_favorite', {'id': coffee.id})  }}">Ajouter aux favoris</a>
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+       {{ include('coffee/_delete_form.html.twig') }}
+    {% endif %}
+    {# {{ include('coffee/_delete_form.html.twig') }} #}
 {% endblock %}

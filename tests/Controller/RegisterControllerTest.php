@@ -20,13 +20,12 @@ class RegisterControllerTest extends WebTestCase
   {
     $client = static::createClient();
     $crawler = $client->request('GET', '/register');
-    $form = $crawler->selectButton('register')->form([
-      'registration_form[username]' => 'toto',
-      'registration_form[email]' => 'toto',
-      'registration_form[plainPassword][first]' => 'toto',
-      'registration_form[plainPassword][second]' => 'toto',
+    $form = $crawler->selectButton('S\'enregistrer')->form([
+      'registration_form[email]' => 'toto@gmail.com',
+      'registration_form[plainPassword]' => 'test1234',
+      'registration_form[agreeTerms]' => false,
     ]);
     $client->submit($form);
-    $this->assertResponseStatusCodeSame(200);
+    $this->assertResponseStatusCodeSame(500);
   }
 }
